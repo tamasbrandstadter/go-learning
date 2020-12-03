@@ -174,11 +174,11 @@ func isSameDigit(num int, input int) bool {
 	return false
 }
 
-func findUniqueItems(ints []int) []int {
+func findUniqueNumbers(nums []int) []int {
 	numbers := make(map[int]int)
 	var uniques []int
 
-	for _, num := range ints {
+	for _, num := range nums {
 		if numbers[num] == 0 {
 			uniques = append(uniques, num)
 			numbers[num] = 1
@@ -208,6 +208,22 @@ func generatePalindrome(s string) string {
 	}
 
 	return builder.String()
+}
+
+func fixUrl(url *string) string {
+	tokens := strings.Split(*url, "/")
+	tokens[0] += ":"
+	tokens[len(tokens)-1] = strings.Replace(tokens[len(tokens)-1], "bots", "odds", 1)
+	*url = strings.Join(tokens, "/")
+	return *url
+}
+
+func reverse(s *string) string {
+	runes := []rune(*s)
+	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
+		runes[i], runes[j] = runes[j], runes[i]
+	}
+	return string(runes)
 }
 
 func main() {
@@ -272,10 +288,29 @@ func main() {
 	fmt.Println(findMatchingIndexes(9, []int{1, 11, 34, 52, 61}))
 	fmt.Println(findMatchingIndexes(5, []int{1, 11, 34, 52, 61}))
 
-	fmt.Println(findUniqueItems([]int{1, 11, 34, 11, 52, 61, 1, 34}))
+	fmt.Println(findUniqueNumbers([]int{1, 11, 34, 11, 52, 61, 1, 34}))
 
 	fmt.Println(isAnagram("dog", "god"))
 	fmt.Println(isAnagram("pear", "apple"))
 
 	fmt.Println(generatePalindrome("santaclaus"))
+
+	wrongText := "In a dishwasher far far away"
+	wrongText = strings.Replace(wrongText, "dishwasher", "galaxy", 1)
+	fmt.Println(wrongText)
+
+	wrongRedditUrl := "https//www.reddit.com/r/nevertellmethebots"
+	fixUrl(&wrongRedditUrl)
+	fmt.Println(wrongRedditUrl)
+
+	wrongQuote := "Hofstadter's Law: It you expect, even when you take into account Hofstadter's Law."
+	after := strings.SplitAfter(wrongQuote, "It")
+	if len(after) > 1 {
+		after[0] += " always takes longer than"
+	}
+	wrongQuote = strings.Join(after, "")
+	fmt.Println(wrongQuote)
+
+	text := ".eslaf eb t'ndluow ecnetnes siht ,dehctiws erew eslaf dna eurt fo sgninaem eht fI"
+	fmt.Println(reverse(&text))
 }
