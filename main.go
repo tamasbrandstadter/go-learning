@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"math"
 	"os"
 	"sort"
 	"strconv"
@@ -313,4 +314,36 @@ func main() {
 
 	text := ".eslaf eb t'ndluow ecnetnes siht ,dehctiws erew eslaf dna eurt fo sgninaem eht fI"
 	fmt.Println(reverse(&text))
+
+	fmt.Println(isArmstrongNumber(1634))
+	fmt.Println(isArmstrongNumber(371))
+	fmt.Println(isArmstrongNumber(153))
+	fmt.Println(isArmstrongNumber(4354432422))
+}
+
+func sum(numbers []float64) float64 {
+	sum := 0.0
+	for _, num := range numbers {
+		sum += num
+	}
+	return sum
+}
+
+func isArmstrongNumber(n int) bool {
+	var digits []int
+
+	tmp := n
+	for tmp != 0 {
+		digit := tmp % 10
+		tmp /= 10
+		digits = append(digits, digit)
+	}
+
+	size := len(digits)
+	var digitsOnPow []float64
+	for _, digit := range digits {
+		digitsOnPow = append(digitsOnPow, math.Pow(float64(digit), float64(size)))
+	}
+
+	return sum(digitsOnPow) == float64(n)
 }
