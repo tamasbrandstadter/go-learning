@@ -4,7 +4,9 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"sort"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -100,8 +102,7 @@ func isEven(num int) bool {
 
 func filterNumbers(numbers []int, f filterFunc) []int {
 	var filtered []int
-	for i := range numbers {
-		num := numbers[i]
+	for _, num := range numbers {
 		if f(num) {
 			filtered = append(filtered, num)
 		}
@@ -152,6 +153,63 @@ func printMatrix() {
 	}
 }
 
+func findMatchingIndexes(input int, numbers []int) []int {
+	var matches []int
+	for i, num := range numbers {
+		if isSameDigit(num, input) {
+			matches = append(matches, i)
+		}
+	}
+	return matches
+}
+
+func isSameDigit(num int, input int) bool {
+	for num > 0 {
+		digit := num % 10
+		if digit == input {
+			return true
+		}
+		num = num / 10
+	}
+	return false
+}
+
+func findUniqueItems(ints []int) []int {
+	numbers := make(map[int]int)
+	var uniques []int
+
+	for _, num := range ints {
+		if numbers[num] == 0 {
+			uniques = append(uniques, num)
+			numbers[num] = 1
+		} else {
+			numbers[num]++
+		}
+	}
+
+	return uniques
+}
+
+func isAnagram(s1 string, s2 string) bool {
+	first := []byte(s1)
+	second := []byte(s2)
+	sort.Slice(first, func(i int, j int) bool { return first[i] < first[j] })
+	sort.Slice(second, func(i int, j int) bool { return second[i] < second[j] })
+	return string(first) == string(second)
+}
+
+func generatePalindrome(s string) string {
+	var builder strings.Builder
+	builder.WriteString(s)
+
+	bytes := []byte(s)
+	for i := len(bytes) - 1; i >= 0; i-- {
+		builder.WriteByte(bytes[i])
+	}
+
+	return builder.String()
+}
+
 func main() {
 	printNames("Esther", "Mary", "Joe")
 	printDetails("Tom", 33, 172.5, true)
@@ -195,4 +253,29 @@ func main() {
 	}
 
 	printMatrix()
+
+	animals := [15]string{"koal", "pand", "zebr", "anacond", "bo", "chinchill", "cobr", "gorill", "hyen", "hydr", "iguan",
+		"impal", "pum", "tarantul", "pirahn"}
+	for i, animal := range animals {
+		animal += "a"
+		animals[i] = animal
+	}
+	fmt.Println(animals)
+
+	orders := [3]string{"first", "second", "third"}
+	tmp := orders[0]
+	orders[0] = orders[2]
+	orders[2] = tmp
+	fmt.Println(orders)
+
+	fmt.Println(findMatchingIndexes(1, []int{1, 11, 34, 52, 61}))
+	fmt.Println(findMatchingIndexes(9, []int{1, 11, 34, 52, 61}))
+	fmt.Println(findMatchingIndexes(5, []int{1, 11, 34, 52, 61}))
+
+	fmt.Println(findUniqueItems([]int{1, 11, 34, 11, 52, 61, 1, 34}))
+
+	fmt.Println(isAnagram("dog", "god"))
+	fmt.Println(isAnagram("pear", "apple"))
+
+	fmt.Println(generatePalindrome("santaclaus"))
 }
