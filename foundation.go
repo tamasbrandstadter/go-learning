@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"errors"
 	"fmt"
 	"math"
 	"os"
@@ -227,6 +228,40 @@ func reverse(s *string) string {
 	return string(runes)
 }
 
+func sum(numbers []float64) float64 {
+	sum := 0.0
+	for _, num := range numbers {
+		sum += num
+	}
+	return sum
+}
+
+func isArmstrongNumber(n int) bool {
+	var digits []int
+
+	tmp := n
+	for tmp != 0 {
+		digit := tmp % 10
+		tmp /= 10
+		digits = append(digits, digit)
+	}
+
+	size := len(digits)
+	var digitsOnPow []float64
+	for _, digit := range digits {
+		digitsOnPow = append(digitsOnPow, math.Pow(float64(digit), float64(size)))
+	}
+
+	return sum(digitsOnPow) == float64(n)
+}
+
+func divideByTen(n float64) (float64, error) {
+	if n == 0 {
+		return -1, errors.New("math: can't divide by zero")
+	}
+	return n / 10, nil
+}
+
 func main() {
 	printNames("Esther", "Mary", "Joe")
 	printDetails("Tom", 33, 172.5, true)
@@ -319,31 +354,11 @@ func main() {
 	fmt.Println(isArmstrongNumber(371))
 	fmt.Println(isArmstrongNumber(153))
 	fmt.Println(isArmstrongNumber(4354432422))
-}
 
-func sum(numbers []float64) float64 {
-	sum := 0.0
-	for _, num := range numbers {
-		sum += num
+	divided, err := divideByTen(0)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(divided)
 	}
-	return sum
-}
-
-func isArmstrongNumber(n int) bool {
-	var digits []int
-
-	tmp := n
-	for tmp != 0 {
-		digit := tmp % 10
-		tmp /= 10
-		digits = append(digits, digit)
-	}
-
-	size := len(digits)
-	var digitsOnPow []float64
-	for _, digit := range digits {
-		digitsOnPow = append(digitsOnPow, math.Pow(float64(digit), float64(size)))
-	}
-
-	return sum(digitsOnPow) == float64(n)
 }
