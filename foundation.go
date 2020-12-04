@@ -193,10 +193,9 @@ func findUniqueNumbers(nums []int) []int {
 }
 
 func isAnagram(s1 string, s2 string) bool {
-	first := []byte(s1)
-	second := []byte(s2)
-	sort.Slice(first, func(i int, j int) bool { return first[i] < first[j] })
-	sort.Slice(second, func(i int, j int) bool { return second[i] < second[j] })
+	first, second := []byte(s1), []byte(s2)
+	sort.Slice(first, func(i, j int) bool { return first[i] < first[j] })
+	sort.Slice(second, func(i, j int) bool { return second[i] < second[j] })
 	return string(first) == string(second)
 }
 
