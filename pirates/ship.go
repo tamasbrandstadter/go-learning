@@ -17,7 +17,7 @@ func (s *Ship) FillShip() {
 		Name:   randSeq(8),
 		Parrot: Parrot{COCKATOO, randSeq(5)},
 	}
-	for i := 0; i < seededRand.Intn(25) + 1; i++ {
+	for i := 0; i < seededRand.Intn(25)+1; i++ {
 		s.Crew = append(s.Crew, Pirate{
 			Name:   randSeq(8),
 			Parrot: Parrot{CAIQUE, randSeq(5)},
@@ -26,7 +26,7 @@ func (s *Ship) FillShip() {
 	fmt.Printf("Filled ship, captain is %s, crew number %d\n", s.Captain.Name, len(s.Crew))
 }
 
-func (s *Ship) Battle(otherShip *Ship)  {
+func (s *Ship) Battle(otherShip *Ship) {
 	firstShipScore := -s.Captain.Intoxication
 	for _, pirate := range s.Crew {
 		if !pirate.Dead {

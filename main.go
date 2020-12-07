@@ -4,10 +4,9 @@ import "./pirates"
 
 func main() {
 	pirate := pirates.Pirate{
-		Name:         "Silver-Tongue",
-		Parrot:       pirates.Parrot{Breed: pirates.LOVEBIRD, Name: "Picasso"},
+		Name:   "Silver-Tongue",
+		Parrot: pirates.Parrot{Breed: pirates.LOVEBIRD, Name: "Picasso"},
 	}
-	
 	pirate2 := pirates.Pirate{
 		Name:   "Seadog",
 		Parrot: pirates.Parrot{Breed: pirates.CAIQUE, Name: "Cayenne"},
@@ -23,7 +22,6 @@ func main() {
 
 	pirate.HowsItGoingMate()
 	pirate.DrinkSomeRum()
-
 	pirate2.HowsItGoingMate()
 	pirate2.DrinkSomeRum()
 

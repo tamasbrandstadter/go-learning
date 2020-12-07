@@ -15,13 +15,13 @@ type Color byte
 
 type PostIt struct {
 	color Color
-	text    string
+	text  string
 }
 
 type BlogPost struct {
-	authorName string
-	title string
-	text    string
+	authorName      string
+	title           string
+	text            string
 	publicationDate time.Time
 }
 
@@ -32,7 +32,7 @@ type Owner struct {
 type Animal struct {
 	hunger int
 	thirst int
-	name string
+	name   string
 	Owner
 }
 
@@ -81,11 +81,11 @@ func main() {
 		publicationDate: time.Now(),
 	}
 	bp.printDetails()
-	
+
 	cat := Animal{
 		hunger: 0,
 		thirst: 0,
-		name: "Boxi",
+		name:   "Boxi",
 		Owner:  Owner{"John"},
 	}
 
