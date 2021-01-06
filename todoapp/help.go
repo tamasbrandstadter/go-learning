@@ -3,14 +3,16 @@ package todoapp
 import "fmt"
 
 type HelpCommand struct {
-	description string
-	flag        string
+	applicationCommands []Command
+	description         string
+	flag                string
 }
 
-func NewHelpCommand() Command {
+func NewHelpCommand(commands []Command) Command {
 	return &HelpCommand{
-		description: "Print available commands",
-		flag:        "-h",
+		applicationCommands: commands,
+		description:         "Print help",
+		flag:                "-h",
 	}
 }
 
@@ -22,9 +24,10 @@ func (h HelpCommand) GetFlag() string {
 	return h.flag
 }
 
-func (h HelpCommand) Execute(commands map[string]Command) {
+func (h HelpCommand) Execute() {
 	fmt.Println("Command Line Todo application\n=============================\nAvailable commands:")
-	for _, command := range commands {
+	for _, command := range h.applicationCommands {
 		fmt.Println(command.GetFlag() + " " + command.GetDescription())
 	}
+	fmt.Println(h.flag + " " + h.description)
 }

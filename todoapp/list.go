@@ -27,7 +27,7 @@ func (l ListCommand) GetFlag() string {
 	return l.flag
 }
 
-func (l *ListCommand) Execute() {
+func (l ListCommand) Execute() {
 	file, err := os.Open("todos.csv")
 	if err != nil {
 		log.Fatal(err)
@@ -35,7 +35,9 @@ func (l *ListCommand) Execute() {
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
+	line := 1
 	for scanner.Scan() {
-		fmt.Println(scanner.Text())
+		fmt.Printf("%d - %s\n", line, scanner.Text())
+		line++
 	}
 }
