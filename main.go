@@ -1,6 +1,7 @@
 package main
 
 import "./pirates"
+import "./todoapp"
 
 func main() {
 	pirate := pirates.Pirate{
@@ -32,4 +33,14 @@ func main() {
 	ship2.FillShip()
 
 	ship.Battle(&ship2)
+
+	help := todoapp.NewHelpCommand()
+	list := todoapp.NewListCommand()
+
+	commands := make(map[string]todoapp.Command)
+	commands[help.GetFlag()] = help
+	commands[list.GetFlag()] = list
+
+	app := todoapp.Application{Commands: commands}
+	app.Run()
 }
