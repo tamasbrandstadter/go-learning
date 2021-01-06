@@ -4,7 +4,10 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 )
+
+const FileName = "todos.csv"
 
 type Command interface {
 	GetDescription() string
@@ -32,6 +35,20 @@ func (app Application) Run() {
 			app.Commands[text].(*HelpCommand).Execute()
 		} else if text == "-q" {
 			app.Commands[text].(*QuitCommand).Execute(&app)
+		} else if text == "-a" {
+			fmt.Print("\nType todo text:\n")
+			scanner.Scan()
+			task := scanner.Text()
+			app.Commands["-a"].(*AddCommand).Execute(task)
+		} else if text == "-d" {
+			fmt.Print("\nWhich todo do you want to remove? Specify the number.\n")
+			scanner.Scan()
+			num, err := strconv.ParseInt(scanner.Text(), 10, 64)
+			if err != nil {
+				app.Commands["-a"].(*DeleteCommand).Execute(num)
+			} else {
+				fmt.Println("Can't parse the number")
+			}
 		} else {
 			fmt.Println("Flag is not supported")
 		}

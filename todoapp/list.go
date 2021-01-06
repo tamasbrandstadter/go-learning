@@ -28,16 +28,19 @@ func (l ListCommand) GetFlag() string {
 }
 
 func (l ListCommand) Execute() {
-	file, err := os.Open("todos.csv")
+	file, err := os.Open(FileName)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
-	line := 1
+	line := 0
 	for scanner.Scan() {
-		fmt.Printf("%d - %s\n", line, scanner.Text())
 		line++
+		fmt.Printf("%d - %s\n", line, scanner.Text())
+	}
+	if line == 0 {
+		fmt.Println("No todos for today!")
 	}
 }
