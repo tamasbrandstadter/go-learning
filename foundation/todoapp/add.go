@@ -35,7 +35,7 @@ func (a AddCommand) Execute(task string) {
 			panic(err)
 		}
 	}()
-	if _, err := file.WriteString("\n" + task); err != nil {
+	if _, err := file.WriteString(task + "\n"); err != nil {
 		log.Println(err)
 	}
 }
