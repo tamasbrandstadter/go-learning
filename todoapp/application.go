@@ -45,9 +45,9 @@ func (app Application) Run() {
 			scanner.Scan()
 			num, err := strconv.ParseInt(scanner.Text(), 10, 64)
 			if err != nil {
-				app.Commands["-a"].(*DeleteCommand).Execute(num)
-			} else {
 				fmt.Println("Can't parse the number")
+			} else {
+				app.Commands["-d"].(*DeleteCommand).Execute(int(num))
 			}
 		} else {
 			fmt.Println("Flag is not supported")
