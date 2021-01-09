@@ -1,4 +1,4 @@
-package oop
+package pirates
 
 import (
 	"fmt"

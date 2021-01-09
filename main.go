@@ -1,12 +1,12 @@
 package main
 
-import "./foundation/oop"
-import "./foundation/todoapp"
+import "./foundation/oop/pirates"
+import "./foundation/oop/todoapp"
 
 func main() {
-	ship := oop.Ship{}
+	ship := pirates.Ship{}
 	ship.FillShip()
-	ship2 := oop.Ship{}
+	ship2 := pirates.Ship{}
 	ship2.FillShip()
 
 	ship.Battle(&ship2)
